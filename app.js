@@ -1,16 +1,25 @@
 const express = require("express");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 require("dotenv").config();
+
 const app = express();
+
+const jsonParser = bodyParser.json();
 
 const categoryRouter = require("./routes/category");
 
-//Set up mongoose connection
-const mongoose = require("mongoose");
-const url = process.env.DB_URL;
-mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
+app.use("/", jsonParser, categoryRouter);
 
-app.use("/", categoryRouter);
+const dbURI = process.env.DB_URL;
+console.log(dbURI);
+mongoose.connect("mongodb://localhost/inventoryv1", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+});
+
+const PORT = process.env.PORT;
 
 app.listen(3000, () => {
-    console.log("abhi");
+    console.log(`Server is connected on port ${PORT}`);
 });
