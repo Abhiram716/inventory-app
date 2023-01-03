@@ -18,8 +18,8 @@ mongoose.connect("mongodb://localhost/inventoryv1", {
     useUnifiedTopology: true,
 });
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 
-app.listen(3000, () => {
+app.listen(PORT, () => {
     console.log(`Server is connected on port ${PORT}`);
 });
